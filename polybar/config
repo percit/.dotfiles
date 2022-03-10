@@ -1,0 +1,342 @@
+;-------------------------------------------------
+;                                                ;
+;           POLYBAR CONFIG FOR CYBERPUNK         ;
+;                                                ;
+;-------------------------------------------------
+
+;-------------------------------------------------
+;                                                ;
+;          			COLORS 				         ;
+;                                                ;
+;-------------------------------------------------
+[colors]
+background = #AA100408
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+
+;can play around with this
+white = #ffffff
+blue =  ${xrdb:color3:#222}
+;-------------------------------------------------
+;                                                ;
+;          			BAR MODULE 				     ;
+;                                                ;
+;-------------------------------------------------
+[bar/future2]
+monitor=HDMI-1
+
+;Define the positioning
+;Everything is relative from top and left corner of screen
+width = 80%
+height = 40
+offset-x = 10%
+offset-y = 2%
+radius = 0.2
+fixed-center = true ;this will fix the center modules at the center
+
+;Define the background and foreground colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+;Define border size and color
+border-size = 2
+border-color = ${colors.foreground}
+
+;Position each module accordingly
+modules-left = bspwm 
+modules-center = date
+modules-right = pulseaudio wireless-network cpu powermenu
+
+;Define fonts to be used, check fc-list to see all the ones you have
+font-0 = "Unifont:size=12:weight=bold;"
+font-1 = "Font Awesome 5 Free,Font Awesome 5 Free Solid: style=Solid: size=12;"
+font-2 = "Font Awesome 5 Free,Font Awesome 5 Free Regular: style=Regular: size=12"
+font-3 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular" 
+
+[bar/future1]
+monitor=DVI-D-1
+
+;Define the positioning
+;Everything is relative from top and left corner of screen
+width = 80%
+height = 40
+offset-x = 10%
+offset-y = 2%
+radius = 0.2
+fixed-center = true ;this will fix the center modules at the center
+
+;Define the background and foreground colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+;Define border size and color
+border-size = 2
+border-color = ${colors.foreground}
+
+;Position each module accordingly
+modules-left = bspwm 
+modules-center = date
+modules-right = pulseaudio wireless-network cpu powermenu
+
+;Define fonts to be used, check fc-list to see all the ones you have
+font-0 = "Unifont:size=12:weight=bold;"
+font-1 = "Font Awesome 5 Free,Font Awesome 5 Free Solid: style=Solid: size=12;"
+font-2 = "Font Awesome 5 Free,Font Awesome 5 Free Regular: style=Regular: size=12"
+font-3 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular" 
+
+;-------------------------------------------------
+;                                                ;
+;          			BSPWM PARAMETERS 		     ;
+;                                                ;
+;-------------------------------------------------
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+
+;Dunno what this does
+format = <label-state>
+
+ws-icon-0=Terminal;ï„ 
+ws-icon-1=Sublime;ï„
+ws-icon-2=Firefox;ï‰©
+ws-icon-3=ws4;ï„€
+ws-icon-4=ws5;ï„
+
+;NOTE: YOU CANNOT HAVE NAME AND ICON
+;TOGETHER ONLY ONE OR THE OTHER!!
+
+label-focused = %icon%
+label-focused-foreground = ${colors.blue} 
+label-focused-padding = 1
+
+label-occupied = %icon%
+label-occupied-foreground = ${colors.white}
+label-occupied-padding = 1
+
+label-empty = %icon%
+label-empty-foreground = ${colors.white}
+label-empty-padding = 1
+
+;-------------------------------------------------
+;                                                ;
+;          		DATE PARAMETERS		 		     ;
+;                                                ;
+;-------------------------------------------------
+[module/date]
+type = internal/date
+interval = 1.0
+date= %m-%d-%Y
+time = %r
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %r
+
+format = ï€— <label>
+format-foreground = ${colors.white}
+
+label = %date% %time%
+label-foreground = ${colors.white}
+
+;-------------------------------------------------
+;                                                ;
+;          		POWER MENU PARAMETERS		 	 ;
+;                                                ;
+;-------------------------------------------------
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+label-open = ï€‘
+label-open-foreground = ${colors.white}
+label-open-margin = 2
+
+label-close = CANCEL
+label-close-foreground = ${colors.blue}
+
+label-separator = |
+label-separator-foreground = ${colors.blue}
+
+menu-margin = 2
+menu-padding = 2
+menu-0-margin = 2
+menu-0-padding = 1
+
+menu-0-0 = REBOOT
+menu-0-0-exec = menu-open-1
+menu-0-1 = SHUTDOWN
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = REBOOT
+menu-1-0-exec = reboot
+menu-1-1 = CANCEL REBOOT
+menu-1-1-exec = menu-open-0
+
+menu-2-0 = SHUTDOWN
+menu-2-0-exec = poweroff
+menu-2-1 = CANCEL SHUTDOWN
+menu-2-1-exec = menu-open-0
+
+;-------------------------------------------------
+;                                                ;
+;          		Wi-Fi PARAMETERS	   		 	 ;
+;                                                ;
+;-------------------------------------------------
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <label-connected>
+
+format-connected-margin = 1
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+
+format-disconnected-margin = 1
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
+
+format-packetloss-margin = 1
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+label-connected = %essid%
+label-connected-foreground = #eefafafa
+
+; Default: (none)
+label-disconnected = NOT CONNECTED 
+label-disconnected-foreground = #66ffffff
+
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+; I turned this off for now
+ramp-signal-0 = ï€’
+ramp-signal-1 = ï€’
+ramp-signal-2 = ï€’
+ramp-signal-3 = ï€’
+ramp-signal-4 = ï€’
+ramp-signal-5 = ï€’
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0 = âš 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = ðŸ“¶
+animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
+
+;-------------------------------------------------
+;                                                ;
+;          		CPU MODULE PARAMETERS		 	 ;
+;                                                ;
+;-------------------------------------------------
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = <label> <ramp-coreload>
+label = CPU:%percentage%%
+label-foreground = ${colors.white}
+
+ramp-coreload-0 = â–
+ramp-coreload-1 = â–‚
+ramp-coreload-2 = â–ƒ
+ramp-coreload-3 = â–„
+ramp-coreload-4 = â–…
+ramp-coreload-5 = â–†
+ramp-coreload-6 = â–‡
+ramp-coreload-7 = â–ˆ
+
+;--------------USER DEFINED MODULES---------------
+;These modules require scripts to run, you can find
+;the scripts and how to run them here:
+;https://github.com/jaagr/polybar/wiki/User-contributed-modules
+
+;-------------------------------------------------
+;                                                ;
+;          		VOLUME PARAMETERS   		 	 ;
+;                                                ;
+;-------------------------------------------------
+
+[module/pulseaudio]
+
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+; I only want 100% volume so false
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+format-volume-margin = 1
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-muted = <label-muted>
+
+format-muted-margin = 1
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels% (unreleased)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %decibels% (unreleased)
+label-muted = ïš© MUTED
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = ï€¦
+ramp-volume-1 = ï€§
+ramp-volume-2 = ï€§
+ramp-volume-3 = ï€¨
+
+; Right and Middle click (unreleased)
+click-right = pavucontrol & 
