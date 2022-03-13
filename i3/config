@@ -37,7 +37,7 @@ for_window [class=".*"] border pixel 2
 gaps inner 10
 
 # Polybar
-exec_always --no-startup-id ~/.i3/polybar.sh &
+exec_always --no-startup-id bash ~/.config/polybar/launch.sh --forest
 
 # i3lock-fancy
 bindsym Mod1+Shift+x exec --no-startup-id "i3lock-fancy"
